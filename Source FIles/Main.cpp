@@ -1,7 +1,14 @@
 #include <iostream>
-
+#include "..\Header Files\Game.h"
 int main()
 {
-	std::cout << "print";
+	Game game;
+
+	while (game.isRunning())
+	{
+
+		game.update();
+		game.render();
+	}
 	return 0;
 }
