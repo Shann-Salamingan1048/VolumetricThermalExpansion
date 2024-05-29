@@ -6,6 +6,8 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <memory>
+#include "Globals.h"
+#include "..\GUI\GUI.h"
 class Game
 {
 private:
@@ -13,7 +15,13 @@ private:
 	sf::Event event;
 	sf::VideoMode videoMode;
 	void initWindow();
-
+	sf::Font font;
+	
+	gui::Button* but_Enter;
+	
+	sf::Vector2i mousePosScreen;
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
 public:
 	Game();
 	~Game();
@@ -22,4 +30,6 @@ public:
 
 	void update();
 	void render();
+
+	void updateMousePos();
 };

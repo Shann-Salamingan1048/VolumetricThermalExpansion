@@ -132,11 +132,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GUI\Button.cpp" />
+    <ClCompile Include="GUI\DropList.cpp" />
     <ClCompile Include="Source FIles\Game.cpp" />
     <ClCompile Include="Source FIles\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="Header Files\Game.h" />
+    <ClInclude Include="Header Files\Globals.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

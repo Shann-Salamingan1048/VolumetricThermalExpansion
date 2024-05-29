@@ -1,11 +1,17 @@
 #include "..\Header Files\Game.h"
 void Game::initWindow()
 {
-	this->videoMode.height = 1320;
-	this->videoMode.width = 1200;
-	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Minesweeper", sf::Style::Titlebar | sf::Style::Close); // smart ptr
+	this->videoMode.height = Screen_Height;
+	this->videoMode.width = Screen_Width;
+	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Titlebar | sf::Style::Close); // smart ptr
 	this->window->setFramerateLimit(60);
+	//this->font.loadFromFile("C:/Users/USER/Documents/1. Batak Time!!!/1. Coding/CPP/Visual Studio/VolumetricThermalExpansion/Font Files/Rosela.ttf");
+	this->font.loadFromFile("Font Files/Rosela.ttf"); 
 
+	// for cube
+	this->but_Enter = new gui::Button(400,400, 300,100, "Enter", &this->font, sf::Color::Red, sf::Color::Blue , sf::Color::Yellow, 50);
+
+	
 }
 void Game::pollEvents()
 {
@@ -17,22 +23,6 @@ void Game::pollEvents()
 		case sf::Event::Closed:
 			this->window->close();
 			break;
-		case sf::Event::KeyPressed:
-			switch (event.key.code)
-			{
-
-			case sf::Keyboard::D:
-
-				break;
-			case sf::Keyboard::W:
-
-				break;
-			case sf::Keyboard::S:
-
-				break;
-			}
-
-			break;
 		default:
 			break;
 		}
@@ -41,6 +31,7 @@ void Game::pollEvents()
 Game::Game()
 {
 	this->initWindow();
+	
 }
 Game::~Game() // destructor
 {
@@ -50,13 +41,24 @@ const bool Game::isRunning() const
 {
 	return this->window->isOpen();
 }
+void Game::updateMousePos()
+{
+	this->mousePosScreen = sf::Mouse::getPosition();
+	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
+}
 void Game::update()
 {
+	this->updateMousePos();
 	this->pollEvents();
+	// for cube
+	this->but_Enter->updateBut(this->mousePosView);
 }
 void Game::render()
 {
 	this->window->clear();
+	this->update();
 	// render
+	this->but_Enter->renderBut(*this->window); // for cube
 	this->window->display();
 }
