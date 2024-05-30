@@ -16,18 +16,23 @@ private:
 	sf::VideoMode videoMode;
 	void initWindow();
 	sf::Font font;
-	
+private:
 	gui::Button* but_Enter;
-	
+	gui::DropList* drop1;
+private:
 	sf::Vector2i mousePosScreen;
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
+private:
+	sf::Clock dtClock;
+	float delta;
 public:
 	Game();
 	~Game();
 	const bool isRunning() const;
 	void pollEvents();
 
+	void updateDT();
 	void update();
 	void render();
 
