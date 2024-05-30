@@ -2,6 +2,7 @@
 gui::Button::~Button()
 {
 	std::cout << "Button destructor!\n";
+	
 }
 gui::Button::Button(float x, float y, float width, float height, const std::string& text, sf::Font* font,
 	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, uint16_t characterSize)

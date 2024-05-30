@@ -5,16 +5,9 @@ void Game::initWindow()
 	this->videoMode.width = Screen_Width;
 	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Titlebar | sf::Style::Close); // smart ptr
 	this->window->setFramerateLimit(60);
-	//this->font.loadFromFile("C:/Users/USER/Documents/1. Batak Time!!!/1. Coding/CPP/Visual Studio/VolumetricThermalExpansion/Font Files/Rosela.ttf");
-	this->font.loadFromFile("Font Files/Rosela.ttf"); 
+	this->font.loadFromFile("Font Files/Coffee Spark.ttf"); 
 
-	// for cube
-	this->but_Enter = new gui::Button(400,400, 300,100, "Enter", &this->font, sf::Color::Red, sf::Color::Blue , sf::Color::Yellow, 50);
-	std::vector<std::string> items =
-	{
-		"Meter", "Centimeter"
-	};
-	this->drop1 = new gui::DropList(600, 600, 100, 100, this->font, items, 30);
+	this->cube1 = new shapes::Cube(measure_Units, this->font);
 }
 void Game::pollEvents()
 {
@@ -25,6 +18,9 @@ void Game::pollEvents()
 		{
 		case sf::Event::Closed:
 			this->window->close();
+			break;
+		case sf::Event::TextEntered:
+			this->cube1->Inputs(this->event);
 			break;
 		default:
 			break;
@@ -39,6 +35,7 @@ Game::Game()
 Game::~Game() // destructor
 {
 	std::cout << "Game.h Destructor!\n";
+	//delete this->cube1;
 }
 const bool Game::isRunning() const
 {
@@ -56,14 +53,8 @@ void Game::update()
 	this->pollEvents();
 	this->updateDT();
 	// for cube
-	this->but_Enter->updateBut(this->mousePosView);
-	if (this->but_Enter->isClicked()) // to know if it only clicked once
-	{
-		std::cout << "Clicked Button\n";
-	}
-	
-	//std::cout << "DropList: " << this->drop1->getText() << "\n";
-	this->drop1->updateDL(this->mousePosView, this->delta);
+	this->cube1->Update(this->mousePosView, this->delta);
+
 }
 void Game::updateDT()
 {
@@ -76,8 +67,9 @@ void Game::render()
 	this->window->clear();
 	this->update();
 	// render
-	this->but_Enter->renderBut(*this->window); // for cube
 
-	this->drop1->drawDL(*this->window);
+	// render Cube Shape
+	this->cube1->Render(*this->window);
+	///
 	this->window->display();
 }

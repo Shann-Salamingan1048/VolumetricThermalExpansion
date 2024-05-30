@@ -134,6 +134,8 @@
   <ItemGroup>
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\DropList.cpp" />
+    <ClCompile Include="GUI\TextBox.cpp" />
+    <ClCompile Include="Shapes\Source\Cube.cpp" />
     <ClCompile Include="Source FIles\Game.cpp" />
     <ClCompile Include="Source FIles\Main.cpp" />
   </ItemGroup>
@@ -141,6 +143,7 @@
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="Header Files\Game.h" />
     <ClInclude Include="Header Files\Globals.h" />
+    <ClInclude Include="Shapes\Headers\Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

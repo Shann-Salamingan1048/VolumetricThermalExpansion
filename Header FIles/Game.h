@@ -7,7 +7,7 @@
 #include <iostream>
 #include <memory>
 #include "Globals.h"
-#include "..\GUI\GUI.h"
+#include "..\Shapes\Headers\Shape.h"
 class Game
 {
 private:
@@ -17,8 +17,7 @@ private:
 	void initWindow();
 	sf::Font font;
 private:
-	gui::Button* but_Enter;
-	gui::DropList* drop1;
+	shapes::Cube* cube1;
 private:
 	sf::Vector2i mousePosScreen;
 	sf::Vector2i mousePosWindow;

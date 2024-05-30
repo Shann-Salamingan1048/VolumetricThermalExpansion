@@ -51,4 +51,29 @@ namespace gui
 		void updateKeyTime(const float& dt);
 		const std::string getText() const;
 	};
+	class TextBox
+	{
+	private:
+		bool isLeftClicked;
+		unsigned short butState;
+		std::string textSTR;
+	private:
+		bool cursorVisible;            // Visibility of the cursor
+		sf::Clock cursorTimer;         // Timer to control cursor blinking
+		sf::RectangleShape cursor;
+	private:
+		sf::RectangleShape textShape;
+		
+		sf::Font* font;
+		sf::Text text;
+	public:
+		TextBox(float x, float y, float width, float height, sf::Font* font, uint16_t characterSize);
+		~TextBox();
+	public:
+		void updateTextBox(const sf::Vector2f& mousePos);
+		void inputTextBox(sf::Event& evt);
+		void renderTextBox(sf::RenderTarget& target);
+	public:
+		const bool isClicked() const;
+	};
 }

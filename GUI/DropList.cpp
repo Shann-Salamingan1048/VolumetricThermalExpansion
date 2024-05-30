@@ -11,6 +11,14 @@ gui::DropList::DropList(float x, float y, float width, float height,
 	sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize)
 	: font(font), isExpanded(false), keyTimeMax(1.0f), keyTime(keyTimeMax)
 {
+	 // initialize the buttons that will become the drop list choices 
+	// y + (i * height) because so when expanded it will locate locate lower
+	/*
+		but1 => active Droplist or the chosen one
+		but2
+		but3 
+		but4
+	*/
 	for (uint16_t i = 0; i < items.size(); i++)
 	{
 		this->listItems.push_back(
@@ -23,9 +31,11 @@ gui::DropList::DropList(float x, float y, float width, float height,
 }
 void gui::DropList::drawDL(sf::RenderTarget& target)
 {
+	// render the chosen drop List choices 
 	this->activeDL->renderBut(target);
 	if (this->isExpanded)
 	{
+		// if expanded then render all the choices
 		for (const auto& i : this->listItems)
 		{
 			i->renderBut(target);
@@ -45,6 +55,10 @@ void gui::DropList::updateDL(const sf::Vector2f& mousePos, const float& dt)
 	}
 	if (this->isExpanded)
 	{
+		/*
+			when you clicked the choices then it will swap the activeDL text or the first choose
+			and the chosen item\
+		*/
 		for (uint16_t i = 0; i < this->listItems.size(); i++)
 		{
 			this->listItems[i]->updateBut(mousePos);
@@ -55,7 +69,7 @@ void gui::DropList::updateDL(const sf::Vector2f& mousePos, const float& dt)
 				this->listItems[i]->setText(temp);
 				this->listItems[0]->setText(this->activeDL->getText());
 				this->isExpanded = false;
-				std::cout << "clicked DL: " << this->activeDL->getText() << "\n";
+				//std::cout << "clicked DL: " << this->activeDL->getText() << "\n";
 			}
 		}
 	}
