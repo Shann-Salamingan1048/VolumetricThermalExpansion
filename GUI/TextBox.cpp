@@ -54,6 +54,16 @@ void gui::TextBox::updateTextBox(const sf::Vector2f& mousePos)
 }
 void gui::TextBox::inputTextBox(sf::Event& evt)
 {
+	// lacks on the blinking cursor...... please do this later because it will waste your time
+	// 
+	//                              / \
+	// IMPORTANT!!!!!!!!!!!!!!!!! Up |    arrow Up
+// 
+// 
+// 
+// 
+// 
+// 
 	// input process
 	switch (evt.type)
 	{
