@@ -4,21 +4,26 @@ gui::TextBox::~TextBox()
 {
 	std::cout << "TextBox Destructor!\n";
 }
-gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* font, uint16_t characterSize)
+gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* font, sf::Texture* textureTB, sf::IntRect* intrectTB)
 {
     //
+	this->clickedDot = false;
 	this->isLeftClicked = false;
 	this->butState = gui::btn_idle;
+	// init  texture and intrect
+	this->textureTB = textureTB;
+	this->intrectTB = intrectTB;
 	// init shape of the text box
 	this->textShape.setPosition(x, y);
 	this->textShape.setSize(sf::Vector2f( width, height));
-	this->textShape.setFillColor(sf::Color::Red);
+	this->textShape.setTexture(this->textureTB); // set the texture in rectangle shape or butshape
+	this->textShape.setTextureRect(*this->intrectTB); // set the intrect in rectangle shape or butshape
 	/// font and text
 	this->font = font;
 	this->text.setFont(*this->font);
-	this->text.setCharacterSize(characterSize);
+	this->text.setCharacterSize(static_cast<uint16_t> (width * 0.1));
 	this->text.setString("");
-	this->text.setFillColor(sf::Color::White);
+	this->text.setFillColor(sf::Color::Black); // font color
 	this->text.setPosition(
 		this->textShape.getPosition().x + this->textShape.getSize().x - this->text.getGlobalBounds().width,
 		this->textShape.getPosition().y + (this->textShape.getSize().y - this->text.getGlobalBounds().height) / 2.0f
@@ -30,6 +35,10 @@ gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* fon
     this->cursor.setPosition(textShape.getPosition().x, text.getPosition().y);
     // 
     this->cursorVisible = false;
+
+	// max characters in the box
+	this->maxChars = static_cast<uint16_t>(this->textShape.getGlobalBounds().width / (this->text.getCharacterSize())) + 5;
+
 }
 
 void gui::TextBox::updateTextBox(const sf::Vector2f& mousePos)
@@ -77,15 +86,25 @@ void gui::TextBox::inputTextBox(sf::Event& evt)
 			{
 				if (!this->textSTR.empty())
 				{
+					if (this->textSTR[this->textSTR.size() - 1] == '.')
+					{
+						this->clickedDot = false;
+					}
 					this->textSTR.pop_back();
 				}
 			}
-			else if (enteredChar >= 32 && enteredChar <= 126) // Printable characters
+			else if ( enteredChar <= 126 && this->textSTR.size() < this->maxChars) // Printable characters and limit its characters that depend in the textbox size
 			{
 #ifdef NumberOnly
 				if (isdigit(static_cast<unsigned char>(enteredChar)))
 				{
+
 					this->textSTR += enteredChar;
+				}
+				else if (enteredChar == '.' && !this->clickedDot)
+				{
+					this->textSTR += enteredChar;
+					this->clickedDot = true;
 				}
 #else
 				this->textSTR += enteredChar;
@@ -93,7 +112,7 @@ void gui::TextBox::inputTextBox(sf::Event& evt)
 			}
 			this->text.setString(this->textSTR);
 			this->text.setPosition(
-				this->textShape.getPosition().x + this->textShape.getSize().x - this->text.getGlobalBounds().width,
+				(this->textShape.getPosition().x + this->textShape.getSize().x - this->text.getGlobalBounds().width) - this->text.getCharacterSize(),
 				this->textShape.getPosition().y + (this->textShape.getSize().y - this->text.getGlobalBounds().height) / 2.0f
 			); // very right
 		}
@@ -115,4 +134,12 @@ void gui::TextBox::renderTextBox(sf::RenderTarget& target)
     {
         target.draw(this->cursor);
     }
+}
+const std::string gui::TextBox::getText() const
+{
+	if (this->textSTR.empty())
+	{
+		return "0";
+	}
+	return this->text.getString();
 }

@@ -21,7 +21,7 @@ gui::Button::Button(float x, float y, float width, float height, const std::stri
 	this->font = font;
 	this->text.setFont(*this->font);
 	this->text.setString(text);
-	this->text.setFillColor(sf::Color::White);
+	this->text.setFillColor(sf::Color::Black);
 	this->text.setCharacterSize(characterSize);
 	this->text.setPosition(
 		this->butShape.getPosition().x + (this->butShape.getSize().x - this->text.getGlobalBounds().width) / 2.0f,
@@ -46,6 +46,7 @@ void gui::Button::updateBut(const sf::Vector2f& mousePos)
 		{
 			if (!this->isLeftClicked) // prevent long pressed or clicked
 			{
+				this->butState = btn_clicked;
 				this->isLeftClicked = true;
 			}
 		}

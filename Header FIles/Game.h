@@ -17,8 +17,9 @@ private:
 	void initWindow();
 private:
 	sf::Font font;
-	sf::Texture textureBut;
+	sf::Texture texture;
 	sf::IntRect intrectBut;
+	sf::IntRect intrectTB;
 	sf::Image imageTemp;
 	sf::Color colorButOrig;
 	sf::Color hoverColorBut;

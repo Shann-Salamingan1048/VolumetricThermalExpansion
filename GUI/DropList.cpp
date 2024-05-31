@@ -8,7 +8,7 @@ gui::DropList::~DropList()
 	}
 }
 gui::DropList::DropList(float x, float y, float width, float height,
-	sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize, sf::Texture& texture, sf::IntRect& intrect)
+	sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize, sf::Texture& texture, sf::IntRect& intrect, sf::Color& origColorBut, sf::Color& hoverColorBut)
 	: font(font), isExpanded(false), keyTimeMax(1.0f), keyTime(1.0f)
 {
 	 // initialize the buttons that will become the drop list choices 
@@ -24,7 +24,7 @@ gui::DropList::DropList(float x, float y, float width, float height,
 		this->listItems.push_back(
 			new gui::Button(x, y + (i * height), width, height,
 				items[i], &this->font, 
-				sf::Color::Red, sf::Color::Blue, 
+				origColorBut, hoverColorBut, 
 				characterSize, &texture, &intrect));
 	}
 	this->activeDL = new Button(*this->listItems[0]); //default or initial
@@ -93,4 +93,8 @@ void gui::DropList::updateKeyTime(const float& dt)
 const std::string gui::DropList::getText() const
 {
 	return this->activeDL->getText();
+}
+const bool gui::DropList::get_isExpanded() const
+{
+	return this->isExpanded;
 }

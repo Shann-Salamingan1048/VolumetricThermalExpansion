@@ -44,33 +44,40 @@ namespace gui
 		sf::Font& font;
 	public:
 		DropList(float x, float y, float width, float height, sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize, 
-			sf::Texture& texture, sf::IntRect& intrect);
+			sf::Texture& texture, sf::IntRect& intrect, sf::Color& origColorBut, sf::Color& hoverColorBut);
 		~DropList();
 	public:
 		void updateDL(const sf::Vector2f& mousePos, const float& dt);
 		void drawDL(sf::RenderTarget& target);
-	public:
+	private:
 		const bool getKeyTime();
 		void updateKeyTime(const float& dt);
+	public:
 		const std::string getText() const;
+		const bool get_isExpanded() const;
 	};
 	class TextBox
 	{
 	private:
+		sf::Texture* textureTB; // TB TextBox
+		sf::IntRect* intrectTB;
+	private:
+		bool clickedDot;
+	private:
 		bool isLeftClicked;
 		unsigned short butState;
 		std::string textSTR;
+		uint16_t maxChars;
 	private:
 		bool cursorVisible;            // Visibility of the cursor
 		sf::Clock cursorTimer;         // Timer to control cursor blinking
 		sf::RectangleShape cursor;     // blinking cursor when enter the text box
 	private:
 		sf::RectangleShape textShape;
-		
 		sf::Font* font;
 		sf::Text text;
 	public:
-		TextBox(float x, float y, float width, float height, sf::Font* font, uint16_t characterSize);
+		TextBox(float x, float y, float width, float height, sf::Font* font, sf::Texture* textureTB, sf::IntRect* intrectTB);
 		~TextBox();
 	public:
 		void updateTextBox(const sf::Vector2f& mousePos);
@@ -78,5 +85,6 @@ namespace gui
 		void renderTextBox(sf::RenderTarget& target);
 	public:
 		const bool isClicked() const;
+		const std::string getText() const;
 	};
 }

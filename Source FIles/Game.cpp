@@ -1,21 +1,26 @@
 #include "..\Header Files\Game.h"
 void Game::initWindow()
 {
+	/* super expensive lol mag fullscreen
+	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Fullscreen );
+	*/
+	// this->videoMode = sf::VideoMode::getDesktopMode(); sa final na ini IMPORTANT!
 	this->videoMode.height = Screen_Height;
 	this->videoMode.width = Screen_Width;
-	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Default); // smart ptr
+	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Close | sf::Style::Titlebar); // smart ptr
 	this->window->setFramerateLimit(60);
 	////
 	this->font.loadFromFile("Font Files/Coffee Spark.ttf"); 
-	this->textureBut.loadFromFile("Picture Sprites/Pixel Art Buttons.png"); // init texture
+	this->texture.loadFromFile("Picture Sprites/Pixel Art Buttons.png"); // init texture
 	this->imageTemp.loadFromFile("Picture Sprites/Pixel Art Buttons.png");//init image
 	// colors
 	this->colorButOrig = this->imageTemp.getPixel(17, 8);
 	this->hoverColorBut = sf::Color::Yellow;; // rgb = sf::Color(int,int,int);
 	////
 	this->intrectBut = sf::IntRect(5,2,55,50);
+	this->intrectTB = sf::IntRect(383, 268, 64, 26);
 	//////
-	this->cube1 = new shapes::Cube(measure_Units, this->font, this->textureBut, this->intrectBut, this->colorButOrig, this->hoverColorBut);
+	this->cube1 = new shapes::Cube(measure_Units, this->font, this->texture, this->intrectBut, this->colorButOrig, this->hoverColorBut, this->intrectTB, temp_Units);
 }
 void Game::pollEvents()
 {
@@ -72,7 +77,7 @@ void Game::updateDT()
 }
 void Game::render()
 {
-	this->window->clear();
+	this->window->clear(sf::Color::Green);
 	this->update();
 	// render
 
