@@ -15,7 +15,13 @@ private:
 	sf::Event event;
 	sf::VideoMode videoMode;
 	void initWindow();
+private:
 	sf::Font font;
+	sf::Texture textureBut;
+	sf::IntRect intrectBut;
+	sf::Image imageTemp;
+	sf::Color colorButOrig;
+	sf::Color hoverColorBut;
 private:
 	shapes::Cube* cube1;
 private:

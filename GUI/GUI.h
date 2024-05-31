@@ -13,7 +13,9 @@ namespace gui
 		bool isLeftClicked;
 	private:
 		sf::RectangleShape butShape;
+		sf::Texture* textureBut;
 		sf::Font* font;
+		sf::IntRect* intrect;
 		sf::Text text;
 	private:
 		sf::Color idleColor;
@@ -21,7 +23,7 @@ namespace gui
 		sf::Color activeColor;
 	public:
 		Button(float x, float y, float width, float height, const std::string& text, sf::Font* font, 
-			sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, uint16_t characterSize);
+			sf::Color idleColor, sf::Color hoverColor, uint16_t characterSize, sf::Texture* texture, sf::IntRect* intrect);
 		~Button();
 	public:
 		void updateBut(const sf::Vector2f& mousePos);
@@ -41,7 +43,8 @@ namespace gui
 		std::vector<gui::Button*> listItems;
 		sf::Font& font;
 	public:
-		DropList(float x, float y, float width, float height, sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize);
+		DropList(float x, float y, float width, float height, sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize, 
+			sf::Texture& texture, sf::IntRect& intrect);
 		~DropList();
 	public:
 		void updateDL(const sf::Vector2f& mousePos, const float& dt);
@@ -60,7 +63,7 @@ namespace gui
 	private:
 		bool cursorVisible;            // Visibility of the cursor
 		sf::Clock cursorTimer;         // Timer to control cursor blinking
-		sf::RectangleShape cursor;
+		sf::RectangleShape cursor;     // blinking cursor when enter the text box
 	private:
 		sf::RectangleShape textShape;
 		

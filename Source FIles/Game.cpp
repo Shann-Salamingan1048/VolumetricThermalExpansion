@@ -3,11 +3,19 @@ void Game::initWindow()
 {
 	this->videoMode.height = Screen_Height;
 	this->videoMode.width = Screen_Width;
-	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Titlebar | sf::Style::Close); // smart ptr
+	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Default); // smart ptr
 	this->window->setFramerateLimit(60);
+	////
 	this->font.loadFromFile("Font Files/Coffee Spark.ttf"); 
-
-	this->cube1 = new shapes::Cube(measure_Units, this->font);
+	this->textureBut.loadFromFile("Picture Sprites/Pixel Art Buttons.png"); // init texture
+	this->imageTemp.loadFromFile("Picture Sprites/Pixel Art Buttons.png");//init image
+	// colors
+	this->colorButOrig = this->imageTemp.getPixel(17, 8);
+	this->hoverColorBut = sf::Color::Yellow;; // rgb = sf::Color(int,int,int);
+	////
+	this->intrectBut = sf::IntRect(5,2,55,50);
+	//////
+	this->cube1 = new shapes::Cube(measure_Units, this->font, this->textureBut, this->intrectBut, this->colorButOrig, this->hoverColorBut);
 }
 void Game::pollEvents()
 {

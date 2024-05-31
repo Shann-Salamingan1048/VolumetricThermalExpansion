@@ -1,4 +1,5 @@
 #include "GUI.h"
+#define NumberOnly
 gui::TextBox::~TextBox()
 {
 	std::cout << "TextBox Destructor!\n";
@@ -6,7 +7,7 @@ gui::TextBox::~TextBox()
 gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* font, uint16_t characterSize)
 {
     //
-	this->isLeftClicked= false;
+	this->isLeftClicked = false;
 	this->butState = gui::btn_idle;
 	// init shape of the text box
 	this->textShape.setPosition(x, y);
@@ -18,10 +19,10 @@ gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* fon
 	this->text.setCharacterSize(characterSize);
 	this->text.setString("");
 	this->text.setFillColor(sf::Color::White);
-    this->text.setPosition(
-        this->textShape.getPosition().x + (this->textShape.getSize().x - this->text.getGlobalBounds().width) / 2.0f,
-        this->textShape.getPosition().y + (this->textShape.getSize().y - this->text.getGlobalBounds().height) / 2.0f
-    ); // centered
+	this->text.setPosition(
+		this->textShape.getPosition().x + this->textShape.getSize().x - this->text.getGlobalBounds().width,
+		this->textShape.getPosition().y + (this->textShape.getSize().y - this->text.getGlobalBounds().height) / 2.0f
+	); // very right
     //
     // Initialize cursor
     this->cursor.setSize(sf::Vector2f(2.f, text.getCharacterSize()));
@@ -65,6 +66,7 @@ void gui::TextBox::inputTextBox(sf::Event& evt)
 // 
 // 
 	// input process
+	// Please implement the text box limit character 
 	switch (evt.type)
 	{
 	case sf::Event::TextEntered:
@@ -80,13 +82,20 @@ void gui::TextBox::inputTextBox(sf::Event& evt)
 			}
 			else if (enteredChar >= 32 && enteredChar <= 126) // Printable characters
 			{
+#ifdef NumberOnly
+				if (isdigit(static_cast<unsigned char>(enteredChar)))
+				{
+					this->textSTR += enteredChar;
+				}
+#else
 				this->textSTR += enteredChar;
+#endif
 			}
 			this->text.setString(this->textSTR);
 			this->text.setPosition(
-				this->textShape.getPosition().x + (this->textShape.getSize().x - this->text.getGlobalBounds().width) / 2.0f,
+				this->textShape.getPosition().x + this->textShape.getSize().x - this->text.getGlobalBounds().width,
 				this->textShape.getPosition().y + (this->textShape.getSize().y - this->text.getGlobalBounds().height) / 2.0f
-			); // centered
+			); // very right
 		}
 	}
 }

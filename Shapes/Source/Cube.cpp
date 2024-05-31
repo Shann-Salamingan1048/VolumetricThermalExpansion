@@ -1,3 +1,4 @@
+
 #include "..\Headers\Shape.h"
 
 shapes::Cube::~Cube()
@@ -6,12 +7,13 @@ shapes::Cube::~Cube()
 	delete this->drop1;
 	delete this->textbox1;
 }
-shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font)
+shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font,sf::Texture& textureBut, sf::IntRect& intrectBut,
+	sf::Color& origColorBut, sf::Color& hoverColorBut)
 {
 	// for cube
-	this->but_Enter = new gui::Button(400, 400, 300, 100, "Enter", &font, sf::Color::Red, sf::Color::Blue, sf::Color::Yellow, 50);
+	this->but_Enter = new gui::Button(400, 400, 300, 100, "Enter", &font, origColorBut, hoverColorBut, 50, &textureBut, &intrectBut);
 
-	this->drop1 = new gui::DropList(600, 600, 100, 100, font, measure_Units, 30);
+	this->drop1 = new gui::DropList(600, 600, 100, 100, font, measure_Units, 30, textureBut, intrectBut);
 	this->textbox1 = new gui::TextBox(700, 700, 100, 100, &font, 30);
 }
 

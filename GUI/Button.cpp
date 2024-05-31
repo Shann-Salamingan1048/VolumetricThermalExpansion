@@ -5,13 +5,18 @@ gui::Button::~Button()
 	
 }
 gui::Button::Button(float x, float y, float width, float height, const std::string& text, sf::Font* font,
-	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor, uint16_t characterSize)
+	sf::Color idleColor, sf::Color hoverColor, uint16_t characterSize, sf::Texture* texture, sf::IntRect* intrect)
 {
 	this->isLeftClicked = false;
 	this->butState = gui::btn_idle;
-	///
+	/// button shape
+	this->textureBut = texture;
+	this->intrect = intrect;
 	this->butShape.setPosition(x, y);
 	this->butShape.setSize(sf::Vector2f(width, height));
+	this->butShape.setTexture(this->textureBut); // set the texture in rectangle shape or butshape
+	this->butShape.setTextureRect(*this->intrect); // set the intrect in rectangle shape or butshape
+	/////
 	// text
 	this->font = font;
 	this->text.setFont(*this->font);
@@ -25,7 +30,6 @@ gui::Button::Button(float x, float y, float width, float height, const std::stri
 	// colors
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor; 
-	this->activeColor = activeColor;
 
 	this->butShape.setFillColor(this->idleColor);
 }
@@ -42,7 +46,6 @@ void gui::Button::updateBut(const sf::Vector2f& mousePos)
 		{
 			if (!this->isLeftClicked) // prevent long pressed or clicked
 			{
-				this->butState = btn_clicked;
 				this->isLeftClicked = true;
 			}
 		}
@@ -60,11 +63,8 @@ void gui::Button::updateBut(const sf::Vector2f& mousePos)
 	case btn_hover:
 		this->butShape.setFillColor(this->hoverColor);
 		break;
-	case btn_clicked:
-		this->butShape.setFillColor(this->activeColor);
-		break;
 	default:
-		this->butShape.setFillColor(sf::Color::Red);
+		this->butShape.setFillColor(sf::Color::Red); // just in case if it errors
 		break;
 	}
 }

@@ -8,8 +8,8 @@ gui::DropList::~DropList()
 	}
 }
 gui::DropList::DropList(float x, float y, float width, float height,
-	sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize)
-	: font(font), isExpanded(false), keyTimeMax(1.0f), keyTime(keyTimeMax)
+	sf::Font& font, const std::vector<std::string>& items, uint16_t characterSize, sf::Texture& texture, sf::IntRect& intrect)
+	: font(font), isExpanded(false), keyTimeMax(1.0f), keyTime(1.0f)
 {
 	 // initialize the buttons that will become the drop list choices 
 	// y + (i * height) because so when expanded it will locate locate lower
@@ -25,7 +25,7 @@ gui::DropList::DropList(float x, float y, float width, float height,
 			new gui::Button(x, y + (i * height), width, height,
 				items[i], &this->font, 
 				sf::Color::Red, sf::Color::Blue, 
-				sf::Color::Yellow, characterSize));
+				characterSize, &texture, &intrect));
 	}
 	this->activeDL = new Button(*this->listItems[0]); //default or initial
 }

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../../GUI/GUI.h"
 namespace shapes
 {
@@ -18,7 +19,7 @@ namespace shapes
 		gui::DropList* drop1;
 		gui::TextBox* textbox1;
 	public:
-		Cube(const std::vector<std::string>& measure_Units, sf::Font& font);
+		Cube(const std::vector<std::string>& measure_Units, sf::Font& font, sf::Texture& textureBut, sf::IntRect& intrectBut, sf::Color& origColorBut, sf::Color& hoverColorBut);
 		~Cube();
 
 	public:
