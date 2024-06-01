@@ -5,9 +5,13 @@ constexpr unsigned int Screen_Width = 2200;
 
 inline const std::vector<std::string> measure_Units
 {
-	"Meter" , "Centimeter", "Feet"
+	"Cu Meter" , "Cu Centimeter", "Cu Feet"
 };
 inline const std::vector<std::string> temp_Units
 {
-	"Celcius", "Fareneheit"
+	"Celcius", "Fahrenheit"
+};
+inline const  std::vector<std::string> On_off
+{
+	"OFF", "ON"
 };

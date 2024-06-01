@@ -86,5 +86,6 @@ namespace gui
 	public:
 		const bool isClicked() const;
 		const std::string getText() const;
+		void setText(const std::string& text);
 	};
 }

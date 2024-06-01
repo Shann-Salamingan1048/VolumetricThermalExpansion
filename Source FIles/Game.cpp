@@ -4,9 +4,8 @@ void Game::initWindow()
 	/* super expensive lol mag fullscreen
 	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Fullscreen );
 	*/
-	// this->videoMode = sf::VideoMode::getDesktopMode(); sa final na ini IMPORTANT!
-	this->videoMode.height = Screen_Height;
-	this->videoMode.width = Screen_Width;
+	this->videoMode = sf::VideoMode::getDesktopMode(); // sa final na ini IMPORTANT!
+
 	this->window = std::make_unique<sf::RenderWindow>(this->videoMode, "Volumetric Thermal Expansion Simulation", sf::Style::Close | sf::Style::Titlebar); // smart ptr
 	this->window->setFramerateLimit(60);
 	////
@@ -20,7 +19,7 @@ void Game::initWindow()
 	this->intrectBut = sf::IntRect(5,2,55,50);
 	this->intrectTB = sf::IntRect(383, 268, 64, 26);
 	//////
-	this->cube1 = new shapes::Cube(measure_Units, this->font, this->texture, this->intrectBut, this->colorButOrig, this->hoverColorBut, this->intrectTB, temp_Units);
+	this->cube1 = new shapes::Cube(measure_Units, this->font, this->texture, this->intrectBut, this->colorButOrig, this->hoverColorBut, this->intrectTB, temp_Units, On_off);
 }
 void Game::pollEvents()
 {

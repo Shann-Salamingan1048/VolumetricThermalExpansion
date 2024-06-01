@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../../GUI/GUI.h"
+#include <sstream>
+#include <format>
 namespace shapes
 {
 	class Shape
@@ -28,13 +30,38 @@ namespace shapes
 	private:
 		gui::TextBox* textbox4;
 	private:
+		gui::DropList* DL_On_Off;
+	private:
 		sf::Text initVol;
 		sf::Text initTemp; // temp = temprature
 		sf::Text finalTemp;
 		sf::Text Beta;
+		sf::Text RotateTxt;
+		sf::Text f_VolTxt;
+		sf::Text delta_VolTxt;
+	private: // try
+		std::vector<sf::Vector3f> vertices =  std::vector<sf::Vector3f>(8);
+		std::vector<sf::Vector3f> copy_OrigVertices = std::vector<sf::Vector3f>(8);
+		std::vector<sf::Vector2i> edges; 
+		void drawCube(sf::RenderTarget& target);
+		void initVertices();
+		float cubeSize;
+		const float rotationSpeed;
+		void rotate(sf::Vector3f& point);
+	private: // calculation sa formula ng volumetric thermal expansion
+		void calculationProcess();
+		float delta_Vol;
+		float i_temp;
+		float f_temp;
+		float delta_temp;
+		float beta;
+		float i_vol;
+		float f_vol;
+		const float FarToCel(const std::string& Fahre) const;
+		float indicateStop;
 	public:
 		Cube(const std::vector<std::string>& measure_Units, sf::Font& font, sf::Texture& textureBut, sf::IntRect& intrectBut, sf::Color& origColorBut, 
-			sf::Color& hoverColorBut,sf::IntRect& intrectTB, const std::vector<std::string>& temp_Units);
+			sf::Color& hoverColorBut,sf::IntRect& intrectTB, const std::vector<std::string>& temp_Units, const std::vector<std::string>& On_off);
 		~Cube();
 
 	public:

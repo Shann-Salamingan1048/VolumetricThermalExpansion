@@ -39,6 +39,8 @@ gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* fon
 	// max characters in the box
 	this->maxChars = static_cast<uint16_t>(this->textShape.getGlobalBounds().width / (this->text.getCharacterSize())) + 5;
 
+
+
 }
 
 void gui::TextBox::updateTextBox(const sf::Vector2f& mousePos)
@@ -137,9 +139,17 @@ void gui::TextBox::renderTextBox(sf::RenderTarget& target)
 }
 const std::string gui::TextBox::getText() const
 {
-	if (this->textSTR.empty())
+	if (this->text.getString() == "")
 	{
 		return "0";
 	}
 	return this->text.getString();
+}
+void gui::TextBox::setText(const std::string& text)
+{
+	this->text.setString(text);
+	this->text.setPosition(
+		(this->textShape.getPosition().x + this->textShape.getSize().x - this->text.getGlobalBounds().width) - this->text.getCharacterSize(),
+		this->textShape.getPosition().y + (this->textShape.getSize().y - this->text.getGlobalBounds().height) / 2.0f
+	); // very right
 }
