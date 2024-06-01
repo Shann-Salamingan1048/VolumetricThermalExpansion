@@ -140,7 +140,7 @@ void shapes::Cube::initVertices()
 	// copy vertices
 	this->copy_OrigVertices = this->vertices;
 }
-void shapes::Cube::Render(sf::RenderTarget& target)
+void shapes::Cube::Render(sf::RenderTarget& target)//
 {
 	// button
 	this->but_Enter->renderBut(target); // for cube
