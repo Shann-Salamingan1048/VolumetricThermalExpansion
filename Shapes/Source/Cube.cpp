@@ -14,6 +14,7 @@ shapes::Cube::~Cube()
 	delete this->textbox3;
 
 	delete this->textbox4;
+	delete this->DL_On_Off;
 }
 shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font,sf::Texture& texture, sf::IntRect& intrectBut,
 	sf::Color& origColorBut, sf::Color& hoverColorBut, sf::IntRect& intrectTB, const std::vector<std::string>& temp_Units, const std::vector<std::string>& on_off)
@@ -213,8 +214,8 @@ void shapes::Cube::Update(const sf::Vector2f& mousePos, const float& dt)
 	}
 	if (this->delta_Vol != 0 && this->indicateStop != this->f_temp) // if delta volume is not zero then add the value of expanding or shrinking
 	{ // from initial temp to final temo
-		this->cubeSize += 0.005; // value of expanding or shrinking
-		float addVal = 0.0055;
+		this->cubeSize += 0.0001; // value of expanding or shrinking
+		float addVal = 0.0055; // for indicatestop
 		if (this->f_temp > this->i_temp) // if it reaches the f_temp then stop
 			// the logic here is that from inital temp to final temp, keep adding the indicatestop till it reaches final temp
 			// if it is not equal to final temp then keep on expanding or shrinking

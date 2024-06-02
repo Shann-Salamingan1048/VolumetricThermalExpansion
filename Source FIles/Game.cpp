@@ -47,7 +47,7 @@ Game::Game()
 Game::~Game() // destructor
 {
 	std::cout << "Game.h Destructor!\n";
-	//delete this->cube1;
+	delete this->cube1; // might delete if something bad
 }
 const bool Game::isRunning() const
 {
