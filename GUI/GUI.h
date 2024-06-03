@@ -63,6 +63,7 @@ namespace gui
 		sf::IntRect* intrectTB;
 	private:
 		bool clickedDot;
+		bool clickedNegative;
 	private:
 		bool isLeftClicked;
 		unsigned short butState;

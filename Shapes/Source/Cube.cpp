@@ -1,4 +1,4 @@
-
+﻿
 #include "..\Headers\Shape.h"
 
 shapes::Cube::~Cube()
@@ -72,13 +72,13 @@ shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font
 
 	this->f_VolTxt.setFont(font);
 	this->f_VolTxt.setString("Final Volume:");
-	this->f_VolTxt.setPosition(sf::Vector2f(400.0f, 300.0f));
+	this->f_VolTxt.setPosition(sf::Vector2f(50.0f, 300.0f));
 	this->f_VolTxt.setFillColor(sf::Color::Black);
 	this->f_VolTxt.setCharacterSize(40);
 
 	this->delta_VolTxt.setFont(font);
 	this->delta_VolTxt.setString("Delta Volume:");
-	this->delta_VolTxt.setPosition(sf::Vector2f(400.0f, 400.0f));
+	this->delta_VolTxt.setPosition(sf::Vector2f(50.0f, 400.0f));
 	this->delta_VolTxt.setFillColor(sf::Color::Black);
 	this->delta_VolTxt.setCharacterSize(40);
 	// try ra anay kuman
@@ -117,6 +117,8 @@ shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font
 	this->edges.push_back(sf::Vector2i(3, 7)); // 3 --> 7
 
 	this->cubeSize = 200;
+	this->copyCubeSize = this->cubeSize; // to reset the expanding and shrinkign so that it will fucntion again
+	this->cubeSizeLimit = this->cubeSize + 3;
 	this->initVertices();
 
 	/// set texts
@@ -191,6 +193,8 @@ void shapes::Cube::Update(const sf::Vector2f& mousePos, const float& dt)
 	{
 		// reset the vertices
 		this->vertices = this->copy_OrigVertices;
+		// reset the cubeSize 
+		this->cubeSize = this->copyCubeSize;
 		this->calculationProcess();
 	}
 	//std::cout << "DropList: " << this->drop1->getText() << "\n";
@@ -212,9 +216,10 @@ void shapes::Cube::Update(const sf::Vector2f& mousePos, const float& dt)
 			rotate(this->vertices[i]);
 		}
 	}
-	if (this->delta_Vol != 0 && this->indicateStop != this->f_temp) // if delta volume is not zero then add the value of expanding or shrinking
-	{ // from initial temp to final temo
-		this->cubeSize += 0.0001; // value of expanding or shrinking
+	if (this->delta_Vol != 0 && this->indicateStop != this->f_temp && this->cubeSize <= this->cubeSizeLimit) // if delta volume is not zero then add the value of expanding or shrinking
+	{ // from initial temp to final temp
+		//if(this->cubeSize <= this->cubeSizeLimit) // if it does not reach it limit size
+		this->cubeSize += 0.01; // value of expanding or shrinking, how fast it is expanding or shrinking
 		float addVal = 0.0055; // for indicatestop
 		if (this->f_temp > this->i_temp) // if it reaches the f_temp then stop
 			// the logic here is that from inital temp to final temp, keep adding the indicatestop till it reaches final temp
@@ -285,7 +290,7 @@ const float shapes::Cube::FarToCel(const std::string& Fahre) const // convert fa
 void shapes::Cube::drawCube(sf::RenderTarget& target)
 {
 	// if delta volume is not zero then do expanding or shrinking
-	if (this->indicateStop != this->f_temp) // if it reaches f_temp then stop exapnding or shrinking
+	if (this->indicateStop != this->f_temp && this->cubeSize <= this->cubeSizeLimit) // if it reaches f_temp then stop exapnding or shrinking, // if it does not reach it limit size
 	{
 		if (this->delta_Vol != 0 && this->f_temp > this->i_temp) // if f_temp is > i_temp then expand
 		{

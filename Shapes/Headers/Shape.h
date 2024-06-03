@@ -45,7 +45,12 @@ namespace shapes
 		std::vector<sf::Vector2i> edges; 
 		void drawCube(sf::RenderTarget& target);
 		void initVertices();
+	private: // this needs to be optimize together with indicateStop
 		float cubeSize;
+		float cubeSizeLimit;
+		float copyCubeSize;
+		float indicateStop;
+	private:
 		const float rotationSpeed;
 		void rotate(sf::Vector3f& point);
 	private: // calculation sa formula ng volumetric thermal expansion
@@ -58,7 +63,6 @@ namespace shapes
 		float i_vol;
 		float f_vol;
 		const float FarToCel(const std::string& Fahre) const;
-		float indicateStop;
 	public:
 		Cube(const std::vector<std::string>& measure_Units, sf::Font& font, sf::Texture& textureBut, sf::IntRect& intrectBut, sf::Color& origColorBut, 
 			sf::Color& hoverColorBut,sf::IntRect& intrectTB, const std::vector<std::string>& temp_Units, const std::vector<std::string>& On_off);

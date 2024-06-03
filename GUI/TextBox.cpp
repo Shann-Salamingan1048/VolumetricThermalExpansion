@@ -8,6 +8,8 @@ gui::TextBox::TextBox(float x, float y, float width, float height, sf::Font* fon
 {
     //
 	this->clickedDot = false;
+	this->clickedNegative = false;
+	///
 	this->isLeftClicked = false;
 	this->butState = gui::btn_idle;
 	// init  texture and intrect
@@ -92,6 +94,10 @@ void gui::TextBox::inputTextBox(sf::Event& evt)
 					{
 						this->clickedDot = false;
 					}
+					if (this->textSTR[this->textSTR.size() - 1] == '-')
+					{
+						this->clickedNegative = false;
+					}
 					this->textSTR.pop_back();
 				}
 			}
@@ -107,6 +113,11 @@ void gui::TextBox::inputTextBox(sf::Event& evt)
 				{
 					this->textSTR += enteredChar;
 					this->clickedDot = true;
+				}
+				else if (enteredChar == '-' && !this->clickedNegative)
+				{
+					this->textSTR += enteredChar;
+					this->clickedNegative = true;
 				}
 #else
 				this->textSTR += enteredChar;
