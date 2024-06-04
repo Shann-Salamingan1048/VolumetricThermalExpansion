@@ -39,6 +39,7 @@ namespace shapes
 		sf::Text RotateTxt;
 		sf::Text f_VolTxt;
 		sf::Text delta_VolTxt;
+		sf::Color textColor;
 	private: // try
 		std::vector<sf::Vector3f> vertices =  std::vector<sf::Vector3f>(8);
 		std::vector<sf::Vector3f> copy_OrigVertices = std::vector<sf::Vector3f>(8);
@@ -63,6 +64,7 @@ namespace shapes
 		float i_vol;
 		float f_vol;
 		const float FarToCel(const std::string& Fahre) const;
+	
 	public:
 		Cube(const std::vector<std::string>& measure_Units, sf::Font& font, sf::Texture& textureBut, sf::IntRect& intrectBut, sf::Color& origColorBut, 
 			sf::Color& hoverColorBut,sf::IntRect& intrectTB, const std::vector<std::string>& temp_Units, const std::vector<std::string>& On_off);

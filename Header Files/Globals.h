@@ -9,7 +9,7 @@ inline const std::vector<std::string> measure_Units
 };
 inline const std::vector<std::string> temp_Units
 {
-	"Celcius", "Fahrenheit"
+	"Celsius", "Fahrenheit"
 };
 inline const  std::vector<std::string> On_off
 {

@@ -19,6 +19,10 @@ void Game::initWindow()
 	this->intrectBut = sf::IntRect(5,2,55,50);
 	this->intrectTB = sf::IntRect(383, 268, 64, 26);
 	//////
+	this->bgTexture.loadFromFile("Picture Sprites/Background2.jpg");
+	this->spriteBG.setTexture(this->bgTexture);
+	//this->spriteBG.setScale(sf::Vector2f(3.0f, 3.0f));
+	//
 	this->cube1 = new shapes::Cube(measure_Units, this->font, this->texture, this->intrectBut, this->colorButOrig, this->hoverColorBut, this->intrectTB, temp_Units, On_off);
 }
 void Game::pollEvents()
@@ -76,10 +80,10 @@ void Game::updateDT()
 }
 void Game::render()
 {
-	this->window->clear(sf::Color::Green);
+	this->window->clear();
 	this->update();
 	// render
-
+	this->window->draw(this->spriteBG); // backhround
 	// render Cube Shape
 	this->cube1->Render(*this->window);
 	///

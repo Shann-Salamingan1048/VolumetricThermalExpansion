@@ -15,6 +15,9 @@ private:
 	sf::Event event;
 	sf::VideoMode videoMode;
 	void initWindow();
+private: // background
+	sf::Texture bgTexture;
+	sf::Sprite spriteBG;
 private:
 	sf::Font font;
 	sf::Texture texture;

@@ -39,47 +39,49 @@ shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font
 
 	// on or off rotate
 	this->DL_On_Off = new gui::DropList(1550, 1200, 300, 100, font, on_off, 40, texture, intrectBut, origColorBut, hoverColorBut);
+	
 	// Texts
+	this->textColor = sf::Color::White;
 	this->initVol.setFont(font);
 	this->initVol.setString("Initial Volume");
 	this->initVol.setPosition(sf::Vector2f(70.0f, 1100.0f));
-	this->initVol.setFillColor(sf::Color::Black);
+	this->initVol.setFillColor(this->textColor);
 	this->initVol.setCharacterSize(40);
 
 	this->initTemp.setFont(font);
 	this->initTemp.setString("Initial Temp");
 	this->initTemp.setPosition(sf::Vector2f(680.0f, 1100.0f));
-	this->initTemp.setFillColor(sf::Color::Black);
+	this->initTemp.setFillColor(this->textColor);
 	this->initTemp.setCharacterSize(40);
 
 	this->finalTemp.setFont(font);
 	this->finalTemp.setString("Final Temp");
 	this->finalTemp.setPosition(sf::Vector2f(1290.0f, 1100.0f));
-	this->finalTemp.setFillColor(sf::Color::Black);
+	this->finalTemp.setFillColor(this->textColor);
 	this->finalTemp.setCharacterSize(40);
 
 	this->Beta.setFont(font);
 	this->Beta.setString("Coefficient \nof \nvolume \nexpansion");
 	this->Beta.setPosition(sf::Vector2f(1900.0f, 1100.0f));
-	this->Beta.setFillColor(sf::Color::Black);
+	this->Beta.setFillColor(this->textColor);
 	this->Beta.setCharacterSize(40);
 
 	this->RotateTxt.setFont(font);
 	this->RotateTxt.setString("Rotate: ");
 	this->RotateTxt.setPosition(sf::Vector2f(1400.0f, 1230.0f));
-	this->RotateTxt.setFillColor(sf::Color::Black);
+	this->RotateTxt.setFillColor(this->textColor);
 	this->RotateTxt.setCharacterSize(40);
 
 	this->f_VolTxt.setFont(font);
 	this->f_VolTxt.setString("Final Volume:");
 	this->f_VolTxt.setPosition(sf::Vector2f(50.0f, 300.0f));
-	this->f_VolTxt.setFillColor(sf::Color::Black);
+	this->f_VolTxt.setFillColor(this->textColor);
 	this->f_VolTxt.setCharacterSize(40);
 
 	this->delta_VolTxt.setFont(font);
 	this->delta_VolTxt.setString("Delta Volume:");
 	this->delta_VolTxt.setPosition(sf::Vector2f(50.0f, 400.0f));
-	this->delta_VolTxt.setFillColor(sf::Color::Black);
+	this->delta_VolTxt.setFillColor(this->textColor);
 	this->delta_VolTxt.setCharacterSize(40);
 	// try ra anay kuman
 	// front face
@@ -126,6 +128,8 @@ shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font
 	this->textbox2->setText("32");
 	this->textbox3->setText("32");
 	this->textbox4->setText("0");
+
+
 }
 void shapes::Cube::initVertices()
 {
