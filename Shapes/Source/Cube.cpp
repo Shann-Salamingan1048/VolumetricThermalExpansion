@@ -61,7 +61,7 @@ shapes::Cube::Cube(const std::vector<std::string>& measure_Units, sf::Font& font
 	this->finalTemp.setCharacterSize(40);
 
 	this->Beta.setFont(font);
-	this->Beta.setString("Coefficient \nof \nvolume \nexpansion");
+	this->Beta.setString("Coefficient \nof \nvolume \nexpansion\n(per degree\nCelsius)");
 	this->Beta.setPosition(sf::Vector2f(1900.0f, 1100.0f));
 	this->Beta.setFillColor(this->textColor);
 	this->Beta.setCharacterSize(40);
@@ -225,7 +225,7 @@ void shapes::Cube::Update(const sf::Vector2f& mousePos, const float& dt)
 		//if(this->cubeSize <= this->cubeSizeLimit) // if it does not reach it limit size
 		this->cubeSize += 0.01; // value of expanding or shrinking, how fast it is expanding or shrinking
 		float addVal = 0.0055; // for indicatestop
-		if (this->f_temp > this->i_temp) // if it reaches the f_temp then stop
+		if (this->delta_Vol > 0) // if it reaches the f_temp then stop
 			// the logic here is that from inital temp to final temp, keep adding the indicatestop till it reaches final temp
 			// if it is not equal to final temp then keep on expanding or shrinking
 		{
@@ -235,7 +235,7 @@ void shapes::Cube::Update(const sf::Vector2f& mousePos, const float& dt)
 				this->indicateStop = this->f_temp;
 			}
 		}
-		else if (this->f_temp < this->i_temp)
+		else if (this->delta_Vol < 0)
 		{
 			this->indicateStop += -addVal;
 			if (this->indicateStop < this->f_temp || this->indicateStop == this->f_temp)
